@@ -2,5 +2,5 @@ package repository
 
 interface MemberRepository {
     fun save();
-    fun find();
+    fun find():Member;
 }

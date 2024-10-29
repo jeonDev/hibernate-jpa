@@ -16,20 +16,25 @@ class MemberRepositoryImpl:MemberRepository {
         try {
             tx.begin()
 
-            val member:Member = Member(1L, "")
+            val member:Member = Member(1L, "abc")
 
             em.persist(member)
             tx.commit()
         } catch (e:Exception) {
             tx.rollback()
         } finally {
+            em.close()
             emf.close()
         }
-
-        TODO("Not yet implemented")
     }
 
-    override fun find() {
-        TODO("Not yet implemented")
+    override fun find():Member {
+        val emf:EntityManagerFactory = Persistence.createEntityManagerFactory("example")
+        val em:EntityManager = emf.createEntityManager()
+
+        val member:Member = em.find(Member::class.java, 1L)
+        em.close()
+        emf.close()
+        return member;
     }
 }
